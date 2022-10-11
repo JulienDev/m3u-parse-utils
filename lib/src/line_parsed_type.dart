@@ -3,6 +3,9 @@ enum LineParsedType {
   /// [header] is the representation of the file type.
   header,
 
+  /// [header_extra] is an extra header.
+  headerExtra,
+
   /// [info] is the row of information of the track.
   info,
 

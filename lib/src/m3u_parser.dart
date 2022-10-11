@@ -49,7 +49,13 @@ class M3uParser {
     switch (_nextLineExpected) {
       case LineParsedType.header:
         _fileType = FileTypeHeader.fromString(line);
-        _nextLineExpected = LineParsedType.info;
+        _nextLineExpected = LineParsedType.headerExtra;
+        break;
+      case LineParsedType.headerExtra:
+        if (line.startsWith('#EXTINF')) {
+          _nextLineExpected = LineParsedType.info;
+          _parseLine(line);
+        }
         break;
       case LineParsedType.info:
         final parsedEntry = _parseInfoRow(line, _fileType);
