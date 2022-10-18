@@ -35,4 +35,12 @@ void main() {
     expect(playlist.length, 5);
     expect(playlist[0].title, "Первый канал");
   });
+
+  test('M3U_Plus multi line file no header', () async {
+    final playlist =
+    await parseFile(await FileUtils.loadFile(fileName: 'plus/multi_line_no_header'));
+
+    expect(playlist.length, 5);
+    expect(playlist[0].title, "Первый канал");
+  });
 }

@@ -10,8 +10,9 @@ class FileTypeHeader {
     } else if (value.startsWith(FileTypeHeader.m3u.toString())) {
       return FileTypeHeader.m3u;
     } else {
-      throw InvalidFormatException(InvalidFormatType.header,
-          originalValue: value);
+      return FileTypeHeader.unknown;
+      // throw InvalidFormatException(InvalidFormatType.header,
+      //     originalValue: value);
     }
   }
 
@@ -25,6 +26,8 @@ class FileTypeHeader {
   /// [m3u] is the simple playlist format type.
   /// Each line only contains the description information
   static const FileTypeHeader m3u = FileTypeHeader._internal('#M3U');
+
+  static const FileTypeHeader unknown = FileTypeHeader._internal('');
 
   /// [m3uPlus] supports extra metadata associated with each line
   /// Each line only contains
