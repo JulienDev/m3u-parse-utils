@@ -48,7 +48,9 @@ class M3uParser {
   void _parseLine(String line) {
     switch (_nextLineExpected) {
       case LineParsedType.header:
-        if (line.startsWith('#EXTINF')) {
+        if (line.isEmpty) {
+          _nextLineExpected = LineParsedType.header;
+        } else if (line.startsWith('#EXTINF')) {
           _fileType = FileTypeHeader.m3uPlus;
           _nextLineExpected = LineParsedType.info;
           _parseLine(line);

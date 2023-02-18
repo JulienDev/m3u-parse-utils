@@ -43,4 +43,12 @@ void main() {
     expect(playlist.length, 5);
     expect(playlist[0].title, "Первый канал");
   });
+
+  test('M3U_Plus single line file first line empty', () async {
+    final playlist =
+    await parseFile(await FileUtils.loadFile(fileName: 'plus/single_line_first_line_empty'));
+    final testSubject = playlist[0];
+      expect(testSubject.title, 'A TV channel');
+      expect(testSubject.link, 'https://vimeo.com/63031638');
+  });
 }
