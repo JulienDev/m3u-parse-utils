@@ -1,0 +1,10 @@
+#EXTM3U url-tvg="http://epg.streaming-elbrus.su/xmltv/epg.xml.gz" refresh="3600"
+#EXTINF:0  tvg-id="pervy"  catchup="flussonic" catchup-days="1" tvg-name="Первый канал HD" group-title="Россия (RU)" tvg-logo="http://streaming-elbrus.su/img/logos/efir/pervyj.png",Первый канал HD
+#EXTGRP:Россия (RU)
+https://link1.su:30455/PERVIY/video.m3u8?token=bXVsdDY5fHxiak50Ym1GMU9XdHpOQT09
+#EXTINF:0  tvg-id="162"  catchup="flussonic" catchup-days="1" tvg-name="НТВ HD" group-title="Россия (RU)" tvg-logo="http://streaming-elbrus.su/img/logos/efir/ntv-white.png",НТВ HD
+#EXTGRP:Россия (RU)
+https://link1.su:4399/ntvhd/video.m3u8?token=bXVsdDY5fHxiak50Ym1GMU9XdHpOQT09
+#EXTINF:0  tvg-id="ntv-pl2"  catchup="flussonic" catchup-days="1" tvg-name="НТВ +2" group-title="Плюсовые (RU)" tvg-logo="http://streaming-elbrus.su/img/logos/efir/ntv-pl2.png",НТВ +2
+#EXTGRP:Плюсовые (RU)
+https://link1.su:9304/NTVPLUS2/video.m3u8?token=bXVsdDY5fHxiak50Ym1GMU9XdHpOQT09

@@ -66,23 +66,27 @@ class M3uParser {
         }
         break;
       case LineParsedType.info:
-        final parsedEntry = _parseInfoRow(line, _fileType);
-        if (parsedEntry == null) {
-          break;
+        if (!line.isEmpty) {
+          final parsedEntry = _parseInfoRow(line, _fileType);
+          if (parsedEntry == null) {
+            break;
+          }
+          _currentInfoEntry = parsedEntry;
+          _nextLineExpected = LineParsedType.source;
         }
-        _currentInfoEntry = parsedEntry;
-        _nextLineExpected = LineParsedType.source;
         break;
       case LineParsedType.source:
-        if (_currentInfoEntry == null) {
+        if (!line.startsWith("#EXTGRP")) {
+          if (_currentInfoEntry == null) {
+            _nextLineExpected = LineParsedType.info;
+            _parseLine(line);
+            break;
+          }
+          _playlist.add(M3uGenericEntry.fromEntryInformation(
+              information: _currentInfoEntry!, link: line));
+          _currentInfoEntry = null;
           _nextLineExpected = LineParsedType.info;
-          _parseLine(line);
-          break;
         }
-        _playlist.add(M3uGenericEntry.fromEntryInformation(
-            information: _currentInfoEntry!, link: line));
-        _currentInfoEntry = null;
-        _nextLineExpected = LineParsedType.info;
         break;
     }
   }
