@@ -5,6 +5,7 @@ import 'package:m3u/src/entry_information.dart';
 import 'package:m3u/src/exception/invalid_format_exception.dart';
 import 'package:m3u/src/file_type_header.dart';
 import 'package:m3u/src/line_parsed_type.dart';
+import 'package:m3u/src/result.dart';
 
 /// A parser of M3U documents.
 ///
@@ -17,7 +18,7 @@ class M3uParser {
   /// Parse a document represented by the [source]
   ///
   /// [source] a string value of the full document.
-  static Future<List<M3uGenericEntry>> parse(String source) async =>
+  static Future<Result> parse(String source) async =>
       M3uParser()._parse(source);
 
   /// Internally used after the header is parsed.
@@ -31,7 +32,8 @@ class M3uParser {
   EntryInformation? _currentInfoEntry;
 
   /// Result accumulator of the parser.
-  final List<M3uGenericEntry> _playlist = <M3uGenericEntry>[];
+  final _result = Result();
+  //final List<M3uGenericEntry> _playlist = <M3uGenericEntry>[];
 
   /// Main parse function
   ///
@@ -40,9 +42,9 @@ class M3uParser {
   /// [source] source file to parse.
   ///
   /// Can [throws] [InvalidFormatException] if the file is not supported.
-  Future<List<M3uGenericEntry>> _parse(String source) async {
+  Future<Result> _parse(String source) async {
     LineSplitter.split(source).forEach(_parseLine);
-    return _playlist;
+    return _result;
   }
 
   void _parseLine(String line) {
@@ -55,6 +57,13 @@ class M3uParser {
           _nextLineExpected = LineParsedType.info;
           _parseLine(line);
         } else {
+          if (line.contains("url-tvg=")) {
+            final match = RegExp(r'url-tvg="([^"]+)"').firstMatch(line);
+            if (match != null && match.groupCount > 0) {
+              final url = match.group(1);
+              _result.epgUrl = url;
+            }
+          }
           _fileType = FileTypeHeader.fromString(line);
           _nextLineExpected = LineParsedType.headerExtra;
         }
@@ -82,7 +91,7 @@ class M3uParser {
             _parseLine(line);
             break;
           }
-          _playlist.add(M3uGenericEntry.fromEntryInformation(
+          _result.entries.add(M3uGenericEntry.fromEntryInformation(
               information: _currentInfoEntry!, link: line));
           _currentInfoEntry = null;
           _nextLineExpected = LineParsedType.info;

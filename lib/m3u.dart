@@ -3,6 +3,7 @@ library m3u;
 import 'package:m3u/m3u.dart';
 import 'package:m3u/src/m3u_parser.dart';
 import 'package:m3u/src/playlist_helper.dart';
+import 'package:m3u/src/result.dart';
 import 'package:meta/meta.dart';
 
 export 'package:m3u/src/entries/generic_entry.dart';
@@ -12,7 +13,7 @@ export 'package:m3u/src/m3u_parser.dart';
 /// Parse a document represented by the [source]
 ///
 /// [source] a string value of the full document.
-Future<List<M3uGenericEntry>> parseFile(String source) async =>
+Future<Result> parseFile(String source) async =>
     M3uParser.parse(source);
 
 /// From a list of categories return them organized by a property
