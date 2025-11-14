@@ -8,17 +8,18 @@ class M3uGenericEntry {
   /// [title] of the track/stream
   /// [attributes] custom attributes, can be null
   /// [link] the link to the source of the track/stream
-  M3uGenericEntry(
-      {required this.title, required this.attributes, required this.link});
+  /// [extgrp] the group from #EXTGRP tag if present
+  M3uGenericEntry({required this.title, required this.attributes, required this.link, this.extgrp});
 
   /// Constructor from an [EntryInformation] that only hold the title
   /// and attributes of a track/stream
-  factory M3uGenericEntry.fromEntryInformation(
-          {required EntryInformation information, required String link}) =>
+  factory M3uGenericEntry.fromEntryInformation({required EntryInformation information, required String link}) =>
       M3uGenericEntry(
-          title: information.title,
-          attributes: information.attributes,
-          link: link);
+        title: information.title,
+        attributes: information.attributes,
+        link: link,
+        extgrp: information.extgrp,
+      );
 
   /// Hold the information about the track.
   /// This is a raw string there are some formats specific to playlists, but
@@ -33,8 +34,13 @@ class M3uGenericEntry {
   /// Source of the track/stream url that points to a track/stream
   String link;
 
+  /// Group name from #EXTGRP tag
+  /// Ex: `#EXTGRP:новости`
+  String? extgrp;
+
   /// Simple representation of the object on a string.
   @override
-  String toString() =>
-      'Title: $title Link:$link hasAttributes:${attributes.isNotEmpty}';
+  String toString() {
+    return 'M3uGenericEntry{title: $title, attributes: $attributes, link: $link, extgrp: $extgrp}';
+  }
 }

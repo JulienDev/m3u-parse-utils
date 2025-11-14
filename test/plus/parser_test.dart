@@ -68,16 +68,19 @@ void main() {
     final video1 = result.entries[0];
     expect(video1.title, 'Первый канал HD');
     expect(video1.attributes["group-title"], 'Россия (RU)');
+    expect(video1.extgrp, 'Россия (RU)');
     expect(video1.link, 'https://link1.su:30455/PERVIY/video.m3u8?token=bXVsdDY5fHxiak50Ym1GMU9XdHpOQT09');
 
     final video2 = result.entries[1];
     expect(video2.title, 'НТВ HD');
     expect(video2.attributes["group-title"], 'Россия (RU)');
+    expect(video2.extgrp, 'Россия (RU)');
     expect(video2.link, 'https://link1.su:4399/ntvhd/video.m3u8?token=bXVsdDY5fHxiak50Ym1GMU9XdHpOQT09');
 
     final video3 = result.entries[2];
     expect(video3.title, 'НТВ +2');
     expect(video3.attributes["group-title"], 'Плюсовые (RU)');
+    expect(video3.extgrp, 'Плюсовые (RU)');
     expect(video3.link, 'https://link1.su:9304/NTVPLUS2/video.m3u8?token=bXVsdDY5fHxiak50Ym1GMU9XdHpOQT09');
   });
 }

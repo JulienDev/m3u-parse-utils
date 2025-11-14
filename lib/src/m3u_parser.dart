@@ -85,7 +85,12 @@ class M3uParser {
         }
         break;
       case LineParsedType.source:
-        if (!line.startsWith("#EXTGRP")) {
+        if (line.startsWith("#EXTGRP:")) {
+          // Parse EXTGRP and add it to current entry
+          if (_currentInfoEntry != null) {
+            _currentInfoEntry!.extgrp = line.substring(8); // Remove "#EXTGRP:"
+          }
+        } else {
           if (_currentInfoEntry == null) {
             _nextLineExpected = LineParsedType.info;
             _parseLine(line);
